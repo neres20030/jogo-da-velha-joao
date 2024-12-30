@@ -1,39 +1,39 @@
 const currentPlayer = document.querySelector(".currentPlayer");
 
-let selected = []; // Para armazenar as posições já selecionadas
-let player = "x";  // Jogador inicial
+let selected = []; 
+let player = "x";  
 let positions = [
-    [1, 2, 3], // Linhas
+    [1, 2, 3], 
     [4, 5, 6],
     [7, 8, 9],
-    [1, 5, 9], // Colunas
+    [1, 5, 9], 
     [1, 4, 7],
     [2, 5, 8],
     [3, 6, 9],
-    [3, 5, 7]  // Diagonais
+    [3, 5, 7]  
 ];
 
-// Função para inicializar o jogo
-function init() {
-    selected = []; // Limpa as posições selecionadas
-    player = "x"; // Reinicia o jogador para "x"
-    currentPlayer.innerHTML = `JOGADOR DA VEZ: ${player}`; // Exibe o jogador da vez
 
-    // Limpa os botões
+function init() {
+    selected = []; 
+    player = "x"; 
+    currentPlayer.innerHTML = `JOGADOR DA VEZ: ${player}`; 
+
+    
     document.querySelectorAll(".game button").forEach(item => {
-        item.innerHTML = ""; // Remove qualquer conteúdo dos botões
-        item.disabled = false; // Habilita os botões novamente
-        item.style.backgroundColor = "white"; // Resetando a cor de fundo
+        item.innerHTML = ""; 
+        item.disabled = false; 
+        item.style.backgroundColor = "white"; 
     });
 }
 
-// Função para alternar entre os jogadores
+
 function switchPlayer() {
-    player = player === "x" ? "o" : "x"; // Alterna entre "x" e "o"
+    player = player === "x" ? "o" : "x"; 
     currentPlayer.innerHTML = `JOGADOR DA VEZ: ${player}`;
 }
 
-// Função para verificar se há vencedor
+
 function checkWinner() {
     for (let i = 0; i < positions.length; i++) {
         const [a, b, c] = positions[i];
@@ -43,30 +43,30 @@ function checkWinner() {
             selected[c - 1] === player
         ) {
             alert(`Jogador ${player} venceu!`);
-            setTimeout(init, 1000); // Reinicia o jogo após 1 segundo
+            setTimeout(init, 1000); 
             return true;
         }
     }
     return false;
 }
 
-// Função para o clique nos botões
+
 document.querySelectorAll(".game button").forEach(item => {
     item.addEventListener("click", () => {
-        const index = item.getAttribute("data-i") - 1; // Pega a posição do botão
+        const index = item.getAttribute("data-i") - 1; 
 
-        if (!selected[index]) { // Verifica se o botão já foi clicado
-            selected[index] = player; // Marca a posição do jogador
-            item.innerHTML = player; // Exibe "x" ou "o" no botão
-            item.disabled = true; // Desabilita o botão após o clique
+        if (!selected[index]) { 
+            selected[index] = player; 
+            item.innerHTML = player; 
+            item.disabled = true; 
 
-            if (checkWinner()) return; // Verifica se houve vitória
-            switchPlayer(); // Troca para o próximo jogador
+            if (checkWinner()) return; 
+            switchPlayer(); 
         }
     });
 });
 
-// Inicia o jogo
+
 init();
 
 
