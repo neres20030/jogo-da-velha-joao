@@ -3,14 +3,9 @@ const currentPlayer = document.querySelector(".currentPlayer");
 let selected = []; 
 let player = "x";  
 let positions = [
-    [1, 2, 3], 
-    [4, 5, 6],
-    [7, 8, 9],
-    [1, 5, 9], 
-    [1, 4, 7],
-    [2, 5, 8],
-    [3, 6, 9],
-    [3, 5, 7]  
+    [1, 2, 3], [4, 5, 6], [7, 8, 9], // Linhas horizontais
+    [1, 4, 7], [2, 5, 8], [3, 6, 9], // Linhas verticais
+    [1, 5, 9], [3, 5, 7]             // Diagonais
 ];
 
 
@@ -35,6 +30,7 @@ function switchPlayer() {
 
 
 function checkWinner() {
+    // Verificar se alguém ganhou
     for (let i = 0; i < positions.length; i++) {
         const [a, b, c] = positions[i];
         if (
@@ -43,12 +39,20 @@ function checkWinner() {
             selected[c - 1] === player
         ) {
             alert(`Jogador ${player} venceu!`);
-            setTimeout(init, 1000); 
+            setTimeout(init, 1000);  // Reinicia o jogo após 1 segundo
             return true;
         }
     }
+
+    // Verificar se houve empate (velha)
+    if (selected.every(position => position !== null)) {
+        alert("Empate! Não há mais movimentos disponíveis.");
+        setTimeout(init, 1000);  // Reinicia o jogo após 1 segundo
+        return true;
+    }
+
     return false;
-}
+}   
 
 
 document.querySelectorAll(".game button").forEach(item => {
